@@ -2,335 +2,61 @@
   "schemaVersion": 1,
   "id": "hugging-face-mcp",
   "kind": "provider-connector",
-  "artifactType": "connector",
-  "qualityVersion": 2,
+  "product": "pipmcp",
   "title": "Hugging Face MCP server",
-  "description": "Inspect model branches and tags, then read a selected revision’s commit history before pinning it in downstream inference tooling. Dataset references can be inspected separately.",
+  "description": "Use Hugging Face with AI agents through one PipMCP API key, actual hosted schemas and governed execution.",
   "status": "ready",
   "verification": "mock-only",
   "releaseEligible": true,
+  "operationIds": [],
   "maintainer": "jannikco",
   "license": "MIT",
-  "product": "pipmcp",
-  "appSlug": "hugging-face",
-  "appName": "Hugging Face",
-  "operationIds": [
-    "list_model_refs",
-    "list_model_commits",
-    "list_dataset_refs"
-  ],
-  "sourceRevision": "fd27c562441bd4270283a79baa646d90e5cfb2525405bbdefb5e011eb02e9f19",
+  "attributionSlug": "github-hugging-face-mcp",
+  "sourceRevision": "5da8deec6370a8cb5c50dcebe1dee37ef9713fef3d6fd00933f662c18ee2d0af",
+  "qualityVersion": 2,
+  "artifactType": "connector",
   "evidence": [
-    "Actual tools/call and direct-provider request contract tests"
+    "Gateway HTTP transport fixtures",
+    "Generated stdio wrapper discovery/call fixtures"
   ],
   "provenance": [
     "https://huggingface.co/.well-known/openapi.json"
   ],
-  "attributionSlug": "github-hugging-face-mcp",
-  "connectorId": "hugging-face",
-  "connector": {
-    "id": "hugging-face",
-    "name": "Hugging Face",
-    "version": "0.1.0",
-    "baseUrl": "https://huggingface.co",
-    "auth": {
-      "type": "bearer",
-      "env": "HF_TOKEN"
-    },
-    "description": "Inspect Hub repository release references and model commit history. This is a Hub metadata connector, not an inference or model download service.",
-    "tools": [
-      {
-        "name": "list_model_refs",
-        "description": "Inspect model branches and tags before selecting a reproducible revision.",
-        "method": "GET",
-        "path": "/api/models/{namespace}/{repo}/refs",
-        "readOnly": true,
-        "inputSchema": {
-          "type": "object",
-          "properties": {
-            "namespace": {
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 96
-            },
-            "repo": {
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 96
-            }
-          },
-          "required": [
-            "namespace",
-            "repo"
-          ],
-          "additionalProperties": false
-        },
-        "bindings": {
-          "path": [
-            "namespace",
-            "repo"
-          ],
-          "query": {},
-          "body": {}
-        },
-        "sampleArguments": {
-          "namespace": "openai",
-          "repo": "whisper-tiny"
-        },
-        "provenance": [
-          "https://huggingface.co/.well-known/openapi.json"
-        ]
-      },
-      {
-        "name": "list_model_commits",
-        "description": "Inspect model commit metadata for a specified branch, tag or commit.",
-        "method": "GET",
-        "path": "/api/models/{namespace}/{repo}/commits/{rev}",
-        "readOnly": true,
-        "inputSchema": {
-          "type": "object",
-          "properties": {
-            "namespace": {
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 96
-            },
-            "repo": {
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 96
-            },
-            "rev": {
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 200
-            }
-          },
-          "required": [
-            "namespace",
-            "repo",
-            "rev"
-          ],
-          "additionalProperties": false
-        },
-        "bindings": {
-          "path": [
-            "namespace",
-            "repo",
-            "rev"
-          ],
-          "query": {},
-          "body": {}
-        },
-        "sampleArguments": {
-          "namespace": "openai",
-          "repo": "whisper-tiny",
-          "rev": "main"
-        },
-        "provenance": [
-          "https://huggingface.co/.well-known/openapi.json"
-        ]
-      },
-      {
-        "name": "list_dataset_refs",
-        "description": "Inspect dataset branches and tags without downloading dataset contents.",
-        "method": "GET",
-        "path": "/api/datasets/{namespace}/{repo}/refs",
-        "readOnly": true,
-        "inputSchema": {
-          "type": "object",
-          "properties": {
-            "namespace": {
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 96
-            },
-            "repo": {
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 96
-            }
-          },
-          "required": [
-            "namespace",
-            "repo"
-          ],
-          "additionalProperties": false
-        },
-        "bindings": {
-          "path": [
-            "namespace",
-            "repo"
-          ],
-          "query": {},
-          "body": {}
-        },
-        "sampleArguments": {
-          "namespace": "cornell-movie-review-data",
-          "repo": "rotten_tomatoes"
-        },
-        "provenance": [
-          "https://huggingface.co/.well-known/openapi.json"
-        ]
-      }
-    ],
-    "provenance": [
-      "https://huggingface.co/.well-known/openapi.json"
-    ],
-    "sourceEvidence": [
-      {
-        "url": "https://huggingface.co/.well-known/openapi.json",
-        "sha256": "a655fd2115af521b217cd895f67adbe4764005b70b4d2ac5328dc2e5cfb980b4",
-        "checkedAt": "2026-11-08T13:24:07.469650+00:00",
-        "method": "https-get"
-      }
-    ],
-    "verification": "mock-only",
-    "providerLiveValidation": "not-run",
-    "workflow": {
-      "name": "Review reproducible model revisions",
-      "description": "Inspect model branches and tags, then read a selected revision’s commit history before pinning it in downstream inference tooling. Dataset references can be inspected separately.",
-      "steps": [
-        "list_model_refs",
-        "list_model_commits"
-      ]
-    },
-    "repoId": "hugging-face-mcp",
-    "appSlug": "hugging-face",
-    "product": "pipmcp",
-    "artifactType": "connector",
-    "sourceRevision": "fd27c562441bd4270283a79baa646d90e5cfb2525405bbdefb5e011eb02e9f19",
-    "capabilityEvidence": {
-      "local": {
-        "level": "Tested",
-        "operations": [
-          {
-            "name": "list_model_refs",
-            "level": "Tested",
-            "evidenceRefs": [
-              "Provider request/stdio contract tests"
-            ],
-            "method": "contract-fixture"
-          },
-          {
-            "name": "list_model_commits",
-            "level": "Tested",
-            "evidenceRefs": [
-              "Provider request/stdio contract tests"
-            ],
-            "method": "contract-fixture"
-          },
-          {
-            "name": "list_dataset_refs",
-            "level": "Tested",
-            "evidenceRefs": [
-              "Provider request/stdio contract tests"
-            ],
-            "method": "contract-fixture"
-          }
-        ],
-        "evidenceRefs": [
-          "Provider request/stdio contract tests"
-        ],
-        "mode": "local"
-      },
-      "managed": {
-        "level": "Documented",
-        "operations": [
-          {
-            "name": "list_model_refs",
-            "level": "Documented",
-            "evidenceRefs": [],
-            "method": "documentation"
-          },
-          {
-            "name": "list_model_commits",
-            "level": "Documented",
-            "evidenceRefs": [],
-            "method": "documentation"
-          },
-          {
-            "name": "list_dataset_refs",
-            "level": "Documented",
-            "evidenceRefs": [],
-            "method": "documentation"
-          }
-        ],
-        "evidenceRefs": [],
-        "mode": "managed"
-      }
-    },
-    "managedAvailability": {
-      "status": "import-required",
-      "integration": "openapi-to-mcp",
-      "checkedAt": "2026-11-08T13:20:45.156456+00:00"
-    }
+  "utility": {
+    "problem": "Inspect model branches and tags, then read a selected revision’s commit history before pinning it in downstream inference tooling. Dataset references can be inspected separately.",
+    "output": "Actual hosted tool schemas and durable governed execution receipts"
   },
+  "appSlug": "hugging-face",
+  "appName": "Hugging Face",
+  "connectorId": "hugging-face",
+  "executionAuthority": "pipmcp-gateway",
+  "version": "1.0.0",
+  "agentReady": true,
   "capabilityEvidence": {
     "local": {
       "level": "Tested",
       "operations": [
         {
-          "name": "list_model_refs",
+          "name": "gateway_transport",
           "level": "Tested",
+          "method": "contract-fixture",
           "evidenceRefs": [
-            "Provider request/stdio contract tests"
-          ],
-          "method": "contract-fixture"
-        },
-        {
-          "name": "list_model_commits",
-          "level": "Tested",
-          "evidenceRefs": [
-            "Provider request/stdio contract tests"
-          ],
-          "method": "contract-fixture"
-        },
-        {
-          "name": "list_dataset_refs",
-          "level": "Tested",
-          "evidenceRefs": [
-            "Provider request/stdio contract tests"
-          ],
-          "method": "contract-fixture"
+            "Generated gateway/stdio fixtures"
+          ]
         }
       ],
       "evidenceRefs": [
-        "Provider request/stdio contract tests"
+        "Generated gateway/stdio fixtures"
       ],
       "mode": "local"
     },
     "managed": {
       "level": "Documented",
-      "operations": [
-        {
-          "name": "list_model_refs",
-          "level": "Documented",
-          "evidenceRefs": [],
-          "method": "documentation"
-        },
-        {
-          "name": "list_model_commits",
-          "level": "Documented",
-          "evidenceRefs": [],
-          "method": "documentation"
-        },
-        {
-          "name": "list_dataset_refs",
-          "level": "Documented",
-          "evidenceRefs": [],
-          "method": "documentation"
-        }
-      ],
+      "operations": [],
       "evidenceRefs": [],
       "mode": "managed"
     }
   },
-  "utility": {
-    "problem": "Inspect model branches and tags, then read a selected revision’s commit history before pinning it in downstream inference tooling. Dataset references can be inspected separately.",
-    "output": "Actual provider API results through local MCP tools"
-  },
-  "providerDocs": "https://huggingface.co/.well-known/openapi.json",
   "factory": "leadadapter-pipmcp",
-  "generatorVersion": 2
+  "generatorVersion": 3
 }

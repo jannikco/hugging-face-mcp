@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "product": "pipmcp",
+  "credential": "PIPMCP_API_KEY",
+  "skills": [
+    {
+      "name": "pipmcp-hugging-face",
+      "description": "Connect AI agents to Hugging Face using one PipMCP API key and actual hosted tool discovery."
+    }
+  ],
+  "files": {
+    "skills/pipmcp-hugging-face/SKILL.md": "7f71e13d9ee9cd74b9ead269a0a6bf824d38317dc222f5642eb9d568a4ec0f57"
+  }
+}
