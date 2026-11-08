@@ -1,0 +1,140 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Hugging Face selected operations",
+    "version": "0.1.0",
+    "description": "Reviewed local connector bindings for manual API import. No provider credentials are included; authentication and hosted execution require separate configuration and tests."
+  },
+  "servers": [
+    {
+      "url": "https://huggingface.co"
+    }
+  ],
+  "paths": {
+    "/api/models/{namespace}/{repo}/refs": {
+      "get": {
+        "operationId": "list_model_refs",
+        "summary": "Inspect model branches and tags before selecting a reproducible revision.",
+        "parameters": [
+          {
+            "name": "namespace",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 96
+            }
+          },
+          {
+            "name": "repo",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 96
+            }
+          }
+        ],
+        "x-pipmcp-read-only": true,
+        "responses": {
+          "200": {
+            "description": "Provider response; inspect provider documentation for result fields."
+          }
+        }
+      }
+    },
+    "/api/models/{namespace}/{repo}/commits/{rev}": {
+      "get": {
+        "operationId": "list_model_commits",
+        "summary": "Inspect model commit metadata for a specified branch, tag or commit.",
+        "parameters": [
+          {
+            "name": "namespace",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 96
+            }
+          },
+          {
+            "name": "repo",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 96
+            }
+          },
+          {
+            "name": "rev",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            }
+          }
+        ],
+        "x-pipmcp-read-only": true,
+        "responses": {
+          "200": {
+            "description": "Provider response; inspect provider documentation for result fields."
+          }
+        }
+      }
+    },
+    "/api/datasets/{namespace}/{repo}/refs": {
+      "get": {
+        "operationId": "list_dataset_refs",
+        "summary": "Inspect dataset branches and tags without downloading dataset contents.",
+        "parameters": [
+          {
+            "name": "namespace",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 96
+            }
+          },
+          {
+            "name": "repo",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 96
+            }
+          }
+        ],
+        "x-pipmcp-read-only": true,
+        "responses": {
+          "200": {
+            "description": "Provider response; inspect provider documentation for result fields."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "providerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "security": [
+    {
+      "providerAuth": []
+    }
+  ]
+}
