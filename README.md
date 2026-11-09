@@ -1,3 +1,70 @@
+# Choose a traceable model or dataset version
+
+**Hugging Face + your AI assistant · powered by PipMCP**
+
+You want to choose a traceable model or dataset version, using the account your team has actually connected.
+
+**Made for:** Teams selecting an AI component
+
+For real use, you will need PipMCP and access to Hugging Face.
+
+## Ask your AI to set this up
+
+Paste this into a coding assistant that can open project files and run commands, such as Codex, Claude Code or Grok Build. You do not need to understand the code first.
+
+```text
+Help me use this project: https://github.com/jannikco/hugging-face-mcp
+
+I'm not a programmer. My goal is: Choose a traceable model or dataset version.
+
+Read the project instructions and set it up in a new folder without overwriting my work.
+Guide me through PipMCP and its private key setup; never ask me to paste secrets into this
+chat. Run a documented sample-data demo if available, then help me get a first small
+result from my connected app. Explain the result in plain English. Ask before changing
+records, sending messages or publishing anything.
+```
+
+## Three useful things to ask for
+
+```text
+Show the branches or tags for the model or dataset I identify.
+```
+
+```text
+Inspect the chosen model revision's commit history and help me record an exact version for
+later use. Do not claim to run inference.
+```
+
+```text
+Prepare a version-selection record showing the model or dataset references we reviewed and
+the exact revision we chose.
+```
+
+## Your path to a real result
+
+```mermaid
+flowchart LR
+  A["Ask your AI"] --> B["Connect PipMCP"] --> C["Choose a traceable<br/>model or dataset…"] --> D["Review together"]
+```
+
+1. [Open PipMCP setup](https://pipmcp.com/github/start?app=hugging-face&integration=hugging-face-mcp&utm_source=github&utm_campaign=github-hugging-face-mcp&utm_content=people-first-readme) and sign in or create your account.
+2. Connect the app in PipMCP with the permissions you want to grant.
+3. Create the product API key through the official setup, add it privately to your AI project's environment, and ask your AI to try a small read.
+
+**What to expect:** Connect Hugging Face in your PipMCP account, then use your PipMCP key for the supported actions. Review proposed changes before they are sent. This client inspects model or dataset versions and model commit history. It does not run a model.
+
+Add your PipMCP key privately in your project settings. Keep keys out of chat and public repositories.
+
+## Keep going
+
+- [Find another useful integration](https://github.com/jannikco/pipmcp-connectors)
+- [Connect an API you control](https://github.com/jannikco/openapi-to-mcp)
+- [Try the GitHub project](https://github.com/jannikco/github-mcp)
+
+<details>
+<summary>Technical reference: installation commands, exact capabilities and troubleshooting</summary>
+
+<!-- people-first:technical:start -->
 # Hugging Face MCP server
 
 **Use Hugging Face from Claude Code, Codex, Grok Build and MCP clients through PipMCP. One PipMCP API key connects this package to private execution.**
@@ -61,3 +128,7 @@ Transport, package and agent fixtures are tested. Authentication/provider access
 ## Provider setup reference
 
 [Official provider documentation](https://huggingface.co/.well-known/openapi.json). Credentials are entered in PipMCP; this package does not accept or store provider secrets.
+
+<!-- people-first:technical:end -->
+
+</details>
